@@ -5,24 +5,24 @@ class IntlAi < Formula
   desc "AI-powered build-time i18n translation CLI"
   homepage "https://intl-ai.pages.dev"
   license "MIT"
-  version "0.4.0"
+  version "0.4.1"
 
   on_macos do
     on_arm do
       url "https://github.com/sigilco/intl-ai/releases/download/v#{version}/intl-ai-bun-darwin-arm64"
-      sha256 "e4e8002ed2ff26c8aaed9869acd4d00769040208f1fb3fe385f283d5faff7e87" # populated by CI on release
+      sha256 "fc535cb9d368bb2e1bb70a069eab2e7f5b3057eff8dfca18e4a5cb42f49bcab2" # populated by CI on release
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/sigilco/intl-ai/releases/download/v#{version}/intl-ai-bun-linux-x64"
-      sha256 "6540650eb2c06357c1d61e86f61d42e974e489624fc2d07b84bad88f339b29bd" # populated by CI on release
+      sha256 "f1bcb4ba8c6c13b1f75ceaa7a81607d4387a47540e31158962440d267bf2ebd0" # populated by CI on release
     end
 
     on_arm do
       url "https://github.com/sigilco/intl-ai/releases/download/v#{version}/intl-ai-bun-linux-arm64"
-      sha256 "e61d10a378277b0196b172f8873e217787af924c34a750d01d2a72f9c73ae88f" # populated by CI on release
+      sha256 "7416ea08395568ee9da79846c9f2ecb77e7e403a593defb79d44d482c2eb6bb6" # populated by CI on release
     end
   end
 
