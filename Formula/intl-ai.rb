@@ -1,42 +1,74 @@
-# This formula is generated and updated by the intl-ai release workflow.
-# Do not edit manually; changes will be overwritten.
-
 class IntlAi < Formula
   desc "AI-powered build-time i18n translation CLI"
   homepage "https://intl-ai.pages.dev"
-  license "MIT"
-  version "0.4.1"
-
-  on_macos do
-    on_arm do
-      url "https://github.com/sigilco/intl-ai/releases/download/v#{version}/intl-ai-bun-darwin-arm64"
-      sha256 "fc535cb9d368bb2e1bb70a069eab2e7f5b3057eff8dfca18e4a5cb42f49bcab2" # populated by CI on release
+  version "0.5.0"
+  if OS.mac?
+    if Hardware::CPU.arm?
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.5.0/intl-ai-aarch64-apple-darwin.tar.xz"
+      sha256 "f7194a2964b96404d2a0bee1eb02d95368038906dc723a5d00453d8c07012542"
+    end
+    if Hardware::CPU.intel?
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.5.0/intl-ai-x86_64-apple-darwin.tar.xz"
+      sha256 "354d552e3ecc0cfa4090614b757132502ab0be82734dba9402e8ca1612a1a594"
     end
   end
-
-  on_linux do
-    on_intel do
-      url "https://github.com/sigilco/intl-ai/releases/download/v#{version}/intl-ai-bun-linux-x64"
-      sha256 "f1bcb4ba8c6c13b1f75ceaa7a81607d4387a47540e31158962440d267bf2ebd0" # populated by CI on release
+  if OS.linux?
+    if Hardware::CPU.arm?
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.5.0/intl-ai-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "59bbd50c60f1603c435b9008aba9e18997857c99a9cef04e8fb5b3e5432da904"
     end
+    if Hardware::CPU.intel?
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.5.0/intl-ai-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "d188e4c35245d9295835e77d50863102b18edc49a2a46ae4353d43a39e0166d7"
+    end
+  end
+  license "Apache-2.0"
 
-    on_arm do
-      url "https://github.com/sigilco/intl-ai/releases/download/v#{version}/intl-ai-bun-linux-arm64"
-      sha256 "7416ea08395568ee9da79846c9f2ecb77e7e403a593defb79d44d482c2eb6bb6" # populated by CI on release
+  BINARY_ALIASES = {
+    "aarch64-apple-darwin":      {},
+    "aarch64-unknown-linux-gnu": {},
+    "x86_64-apple-darwin":       {},
+    "x86_64-pc-windows-gnu":     {},
+    "x86_64-unknown-linux-gnu":  {},
+  }.freeze
+
+  def target_triple
+    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
+
+    "#{cpu}-#{os}"
+  end
+
+  def install_binary_aliases!
+    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
+      dests.each do |dest|
+        bin.install_symlink bin/source.to_s => dest
+      end
     end
   end
 
   def install
-    if Hardware::CPU.arm? && OS.mac?
-      bin.install "intl-ai-bun-darwin-arm64" => "intl-ai"
-    elsif Hardware::CPU.intel? && OS.linux?
-      bin.install "intl-ai-bun-linux-x64" => "intl-ai"
-    elsif Hardware::CPU.arm? && OS.linux?
-      bin.install "intl-ai-bun-linux-arm64" => "intl-ai"
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "intl-ai"
     end
-  end
+    if OS.mac? && Hardware::CPU.intel?
+      bin.install "intl-ai"
+    end
+    if OS.linux? && Hardware::CPU.arm?
+      bin.install "intl-ai"
+    end
+    if OS.linux? && Hardware::CPU.intel?
+      bin.install "intl-ai"
+    end
 
-  test do
-    system "#{bin}/intl-ai", "--version"
+    install_binary_aliases!
+
+    # Homebrew will automatically install these, so we don't need to do that
+    doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
+    leftover_contents = Dir["*"] - doc_files
+
+    # Install any leftover files in pkgshare; these are probably config or
+    # sample files.
+    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
   end
 end
