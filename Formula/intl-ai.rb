@@ -1,25 +1,25 @@
 class IntlAi < Formula
   desc "AI-powered build-time i18n translation CLI"
-  homepage "https://intl-ai.pages.dev"
-  version "0.6.0"
+  homepage "https://intl-ai.illo.fyi"
+  version "0.7.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/sigilco/intl-ai/releases/download/v0.6.0/intl-ai-aarch64-apple-darwin.tar.xz"
-      sha256 "40ca877f0e33b4327858c7b07f0caf293269281294b2af06fb656f3ee44f45e4"
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.7.0/intl-ai-aarch64-apple-darwin.tar.xz"
+      sha256 "fc6cddcacbe7a6e484f0296cc57ed0c8e6c63431577ad22d071b317fae275512"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/sigilco/intl-ai/releases/download/v0.6.0/intl-ai-x86_64-apple-darwin.tar.xz"
-      sha256 "249334a3015dd99512a56e636c3a23ce133fc62cf0bd5b29c53ae64d81b3b2cc"
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.7.0/intl-ai-x86_64-apple-darwin.tar.xz"
+      sha256 "8417895baa67781c20ae38ef3335bb4af72fd41b242dac4a87ce2a1044046f19"
     end
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/sigilco/intl-ai/releases/download/v0.6.0/intl-ai-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "c1dd233457d28dc37602931feed2f74ca9df87a3bc06b532c62bda2f54ad8d52"
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.7.0/intl-ai-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "e63febeb831726b95471fbe7e51de7fe51b82c2fde80b8672a4e7de96a09faa7"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/sigilco/intl-ai/releases/download/v0.6.0/intl-ai-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "d4b88f2109122e7486cbc04756aa2f52b182398fc6ecac9032f1100a070ca7f4"
+      url "https://github.com/sigilco/intl-ai/releases/download/v0.7.0/intl-ai-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "43dc59586a82d21b7c7ce28e045a7edf71cf16440df4fd35d87339d404e098fc"
     end
   end
   license "Apache-2.0"
